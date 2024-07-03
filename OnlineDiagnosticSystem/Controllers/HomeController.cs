@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -52,6 +53,7 @@ namespace OnlineDiagnosticSystem.Controllers
                 Session["isVerified"] = user.isVerified;
                 return View("Index");
             }
+            ViewBag.message = "User Name And Password is incorrect!";
             Logout();
             return View("Login");
         }
@@ -67,6 +69,45 @@ namespace OnlineDiagnosticSystem.Controllers
             Session["Description"] = string.Empty;
             Session["isVerified"] = string.Empty; 
         }
+
+        public ActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ChangePassword(string OldPassword, string NewPassword, string ConfirmPassword)
+        {
+            if (Session["UserID"] == null)
+            {
+                return RedirectToAction("Login", "Home");
+            }
+
+            int? userid = Convert.ToInt32(Session["UserID"].ToString());
+            UserTable users = db.UserTables.Find(userid);
+            if (users.Password == OldPassword)
+            {
+                if (NewPassword == ConfirmPassword)
+                {
+                    users.Password = NewPassword;
+                    db.Entry(users).State = EntityState.Modified;
+                    db.SaveChanges();
+                    ViewBag.message = "Change Successfully!";
+                    return RedirectToAction("Login", "Home");
+                }
+                else
+                {
+                    ViewBag.message = "New Password and Confirm Password Not Matched!";
+                    return View("ChangePassword");
+                }
+            }
+            else
+            {
+                ViewBag.message = "Old Password is Incorrect!";
+                return View("ChangePassword");
+            }
+        }
+
 
         public ActionResult About()
         {

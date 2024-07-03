@@ -40,7 +40,8 @@
         <nav class="left-nav">
             <ul id="nav">
                 <li class="current"><a href="#welcome">Welcome</a></li>
-                <li><a href="#installation">Installation</a></li>
+                <li>@Html.ActionLink("Account Type", "Index", "AccountTypeTables", null, null)</li>
+                <li>@Html.ActionLink("Change Password", "ChangePassword", "Home", null, null)</li>
                 <li><a href="#tmpl-structure">Structure</a></li>
                 <li><a href="#css-structure">CSS Files</a></li>
                 <li><a href="#javascript">JavaScript Libraries</a></li>
@@ -60,10 +61,12 @@
                 </div>
                 @RenderBody()
             </section>
+            </div>
+        </div>
 
 
             <!-- Essential JavaScript Libraries
-                ==============================================-->
+    ==============================================-->
             <script type="text/javascript" src="~/Content/DeshboardTemplate/js/jquery-1.11.0.min.js"></script>
             <script type="text/javascript" src="~/Content/DeshboardTemplate/js/jquery.nav.js"></script>
             <script type="text/javascript" src="~/Content/DeshboardTemplate/syntax-highlighter/scripts/shCore.js"></script>
@@ -75,6 +78,16 @@
                 SyntaxHighlighter.all()
             </script>
             <script type="text/javascript" src="~/Content/DeshboardTemplate/js/custom.js"></script>
-</div></div>
+            @*@Scripts.Render("~/bundles/jquery")*@
+            @*@Scripts.Render("~/bundles/bootstrap")*@
+            @*@RenderSection("scripts", required: false)*@
+
+            <!-- Page level plugins -->
+            <script src="~/Content/AdminTemplate/vendor/datatables/jquery.dataTables.min.js"></script>
+            <script src="~/Content/AdminTemplate/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+            <!-- Page level custom scripts -->
+            <script src="~/Content/AdminTemplate/js/demo/datatables-demo.js"></script>
 </body>
+
 </html>
