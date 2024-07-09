@@ -12,6 +12,8 @@ namespace DatabaseLayer
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Web;
 
     public partial class DoctorTable
     {
@@ -27,46 +29,36 @@ namespace DatabaseLayer
 
         [Required(ErrorMessage = "*Required!")]
         public string Name { get; set; }
-
         [Required(ErrorMessage = "*Required!")]
         public string ContactNo { get; set; }
-
         [Required(ErrorMessage = "*Required!")]
         [DataType(DataType.Currency)]
         public double Fees { get; set; }
-
         [Required(ErrorMessage = "*Required!")]
         public string Splztion { get; set; }
-
         [Required(ErrorMessage = "*Required!")]
         public string ClinicAddress { get; set; }
-
         [Required(ErrorMessage = "*Required!")]
-        
         public string PermanentAddress { get; set; }
-
         [Required(ErrorMessage = "*Required!")]
         [DataType(DataType.EmailAddress)]
         public string EmailAddress { get; set; }
-
         [Required(ErrorMessage = "*Required!")]
         public string ClinicPhoneNo { get; set; }
-
         [Required(ErrorMessage = "*Required!")]
         public string Description { get; set; }
         [Required(ErrorMessage = "*Required!")]
         public Nullable<int> PerDayMaxAppitmnt { get; set; }
         public string Photo { get; set; }
-
         [Required(ErrorMessage = "*Required!")]
-
         public int AccountTypeID { get; set; }
-
         [Required(ErrorMessage = "*Required!")]
         public string AccountNo { get; set; }
-
         [Required(ErrorMessage = "*Required!")]
         public int GenderID { get; set; }
+
+        [NotMapped]
+        public HttpPostedFileBase LogoFile { get; set; }
     
         public virtual AccountTypeTable AccountTypeTable { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

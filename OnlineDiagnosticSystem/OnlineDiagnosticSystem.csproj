@@ -130,6 +130,7 @@
     <Compile Include="Controllers\AccountTypeTablesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserTypeTablesController.cs" />
+    <Compile Include="FileHelpers.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -641,9 +642,15 @@
     <Content Include="Views\AccountTypeTables\Edit.cshtml" />
     <Content Include="Views\AccountTypeTables\Index.cshtml" />
     <Content Include="Views\Home\ChangePassword.cshtml" />
+    <Content Include="Views\Home\CreateUser.cshtml" />
+    <Content Include="Views\Home\AddDoctor.cshtml" />
+    <Content Include="Views\Home\AddLab.cshtml" />
+    <Content Include="Views\Home\AddPatient.cshtml" />
+    <Content Include="Views\Home\UnderReview.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Content\DoctorImages\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

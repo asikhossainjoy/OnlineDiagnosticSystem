@@ -30,7 +30,6 @@
 </head>
 
 <body id="welcome">
-
     <aside class="left-sidebar">
         <div class="logo">
             <a href="#welcome">
@@ -38,17 +37,17 @@
             </a>
         </div>
         <nav class="left-nav">
-            <ul id="nav">
+            <ul id="main-nav">
                 <li class="current"><a href="#welcome">Welcome</a></li>
                 <li>@Html.ActionLink("Account Type", "Index", "AccountTypeTables", null, null)</li>
                 <li>@Html.ActionLink("Change Password", "ChangePassword", "Home", null, null)</li>
-                <li><a href="#tmpl-structure">Structure</a></li>
-                <li><a href="#css-structure">CSS Files</a></li>
-                <li><a href="#javascript">JavaScript Libraries</a></li>
-                <li><a href="#contact-form">Contact Form</a></li>
-                <li><a href="#subscription-form">Subscription Form</a></li>
-                <li><a href="#video">Video Tutorial</a></li>
-                <li><a href="#credit">Source and Credit</a></li>
+                @*<li><a href="#tmpl-structure">Structure</a></li>
+        <li><a href="#css-structure">CSS Files</a></li>
+        <li><a href="#javascript">JavaScript Libraries</a></li>
+        <li><a href="#contact-form">Contact Form</a></li>
+        <li><a href="#subscription-form">Subscription Form</a></li>
+        <li><a href="#video">Video Tutorial</a></li>
+        <li><a href="#credit">Source and Credit</a></li>*@
             </ul>
         </nav>
     </aside>
@@ -61,33 +60,34 @@
                 </div>
                 @RenderBody()
             </section>
-            </div>
         </div>
+    </div>
 
 
-            <!-- Essential JavaScript Libraries
+    <!-- Essential JavaScript Libraries
     ==============================================-->
-            <script type="text/javascript" src="~/Content/DeshboardTemplate/js/jquery-1.11.0.min.js"></script>
-            <script type="text/javascript" src="~/Content/DeshboardTemplate/js/jquery.nav.js"></script>
-            <script type="text/javascript" src="~/Content/DeshboardTemplate/syntax-highlighter/scripts/shCore.js"></script>
-            <script type="text/javascript" src="~/Content/DeshboardTemplate/syntax-highlighter/scripts/shBrushXml.js"></script>
-            <script type="text/javascript" src="~/Content/DeshboardTemplate/syntax-highlighter/scripts/shBrushCss.js"></script>
-            <script type="text/javascript" src="~/Content/DeshboardTemplate/syntax-highlighter/scripts/shBrushJScript.js"></script>
-            <script type="text/javascript" src="~/Content/DeshboardTemplate/syntax-highlighter/scripts/shBrushPhp.js"></script>
-            <script type="text/javascript">
-                SyntaxHighlighter.all()
-            </script>
-            <script type="text/javascript" src="~/Content/DeshboardTemplate/js/custom.js"></script>
-            @*@Scripts.Render("~/bundles/jquery")*@
-            @*@Scripts.Render("~/bundles/bootstrap")*@
-            @*@RenderSection("scripts", required: false)*@
 
-            <!-- Page level plugins -->
-            <script src="~/Content/AdminTemplate/vendor/datatables/jquery.dataTables.min.js"></script>
-            <script src="~/Content/AdminTemplate/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script type="text/javascript" src="~/Content/DeshboardTemplate/js/jquery-1.11.0.min.js"></script>
+    <script type="text/javascript" src="~/Content/DeshboardTemplate/js/jquery.nav.js"></script>
+    <script type="text/javascript" src="~/Content/DeshboardTemplate/syntax-highlighter/scripts/shCore.js"></script>
+    <script type="text/javascript" src="~/Content/DeshboardTemplate/syntax-highlighter/scripts/shBrushXml.js"></script>
+    <script type="text/javascript" src="~/Content/DeshboardTemplate/syntax-highlighter/scripts/shBrushCss.js"></script>
+    <script type="text/javascript" src="~/Content/DeshboardTemplate/syntax-highlighter/scripts/shBrushJScript.js"></script>
+    <script type="text/javascript" src="~/Content/DeshboardTemplate/syntax-highlighter/scripts/shBrushPhp.js"></script>
+    <script type="text/javascript">
+        SyntaxHighlighter.all()
+    </script>
+    <script type="text/javascript" src="~/Content/DeshboardTemplate/js/custom.js"></script>
+    @*@Scripts.Render("~/bundles/jquery")*@
+    @*@Scripts.Render("~/bundles/bootstrap")*@
+    @*@RenderSection("scripts", required: false)*@
 
-            <!-- Page level custom scripts -->
-            <script src="~/Content/AdminTemplate/js/demo/datatables-demo.js"></script>
+    <!-- Page level plugins -->
+    <script src="~/Content/AdminTemplate/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/Content/AdminTemplate/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="~/Content/AdminTemplate/js/demo/datatables-demo.js"></script>
 </body>
 
 </html>
