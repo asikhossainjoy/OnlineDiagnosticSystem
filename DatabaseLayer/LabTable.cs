@@ -25,7 +25,7 @@ namespace DatabaseLayer
             this.LabTestTables = new HashSet<LabTestTable>();
             this.LabTimeSlotTables = new HashSet<LabTimeSlotTable>();
         }
-    
+
         public int LabID { get; set; }
         public int UserID { get; set; }
 

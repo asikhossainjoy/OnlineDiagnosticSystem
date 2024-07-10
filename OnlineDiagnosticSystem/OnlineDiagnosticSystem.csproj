@@ -651,6 +651,8 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Content\DoctorImages\" />
+    <Folder Include="Content\LabPhotos\" />
+    <Folder Include="Content\PatientPhotos\" />
     <Folder Include="Models\" />
   </ItemGroup>
   <ItemGroup>

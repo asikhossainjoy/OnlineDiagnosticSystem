@@ -29,6 +29,7 @@ namespace DatabaseLayer
         public virtual DbSet<DoctorAppointTable> DoctorAppointTables { get; set; }
         public virtual DbSet<DoctorTable> DoctorTables { get; set; }
         public virtual DbSet<DoctorTimeSlotTable> DoctorTimeSlotTables { get; set; }
+        public virtual DbSet<GenderTable> GenderTables { get; set; }
         public virtual DbSet<LabAppointTable> LabAppointTables { get; set; }
         public virtual DbSet<LabTable> LabTables { get; set; }
         public virtual DbSet<LabTestDetailsTable> LabTestDetailsTables { get; set; }
@@ -39,6 +40,5 @@ namespace DatabaseLayer
         public virtual DbSet<sysdiagram> sysdiagrams { get; set; }
         public virtual DbSet<UserTable> UserTables { get; set; }
         public virtual DbSet<UserTypeTable> UserTypeTables { get; set; }
-        public virtual DbSet<GenderTable> GenderTables { get; set; }
     }
 }

@@ -53,7 +53,50 @@ namespace OnlineDiagnosticSystem.Controllers
                 Session["isVerified"] = user.isVerified;
                 return View("Index");
             }
-            ViewBag.message = "User Name And Password is incorrect!";
+
+            user = db.UserTables.Where(u => u.Email == email && u.Password == password && u.isVerified == false).FirstOrDefault();
+            if (user != null)
+            {
+
+
+
+                ViewBag.Message = "Email is Already Registerd, Please Enter Profile Details!";
+                Session["User"] = user;
+
+                if (user.UserTypeID == 2) //Doctor
+                {
+
+                    var doc = db.DoctorTables.Where(u => u.UserID == user.UserID).FirstOrDefault();
+                    if (doc == null)
+                    {
+                        return RedirectToAction("AddDoctor");
+                    }
+                    ViewBag.Message = "Account is Under Review!";
+
+                }
+                else if (user.UserTypeID == 3) //Lab
+                {
+                    var lab = db.LabTables.Where(u => u.UserID == user.UserID).FirstOrDefault();
+                    if (lab == null)
+                    {
+                        return RedirectToAction("AddLab");
+                    }
+                    ViewBag.Message = "Account is Under Review!";
+                }
+                else if (user.UserTypeID == 4)  //Patient
+                {
+                    var pat = db.PatientTables.Where(u => u.UserID == user.UserID).FirstOrDefault();
+                    if (pat == null)
+                    {
+                        return RedirectToAction("AddPatient");
+                    }
+                    ViewBag.Message = "Account is Under Review!";
+                }
+            }
+            else
+            {
+                ViewBag.message = "User Name And Password is incorrect!";
+            }
             Logout();
             return View("Login");
         }
@@ -168,15 +211,45 @@ namespace OnlineDiagnosticSystem.Controllers
                             }
 
                         }
-                        else
-                        {
-                            ViewBag.Message = "Account is Under Review!";
-                        }
+                        
 
                     }
                     else
                     {
-                        ViewBag.Message = "Email Already Registered!";
+
+                        ViewBag.Message = "Email is Already Registerd, Please Enter Profile Details!";
+                        Session["User"] = finduser;
+
+                        if (finduser.UserTypeID == 2) //Doctor
+                        {
+
+                            var doc = db.DoctorTables.Where(u => u.UserID == finduser.UserID).FirstOrDefault();
+                            if (doc == null)
+                            {
+                                return RedirectToAction("AddDoctor");
+                            }
+                            ViewBag.Message = "Account is Under Review!";
+
+                        }
+                        else if (user.UserTypeID == 3) //Lab
+                        {
+                            var lab = db.LabTables.Where(u => u.UserID == finduser.UserID).FirstOrDefault();
+                            if (lab == null)
+                            {
+                                return RedirectToAction("AddLab");
+                            }
+                            ViewBag.Message = "Account is Under Review!";
+                        }
+                        else if (user.UserTypeID == 4)  //Patient
+                        {
+                            var pat = db.PatientTables.Where(u => u.UserID == finduser.UserID).FirstOrDefault();
+                            if (pat == null)
+                            {
+                                return RedirectToAction("AddPatient");
+                            }
+                            ViewBag.Message = "Account is Under Review!";
+                        }
+
                     }
                 }
             }
@@ -213,7 +286,7 @@ namespace OnlineDiagnosticSystem.Controllers
                         if (doctor.LogoFile != null)
                         {
                             var folder = "~/Content/DoctorImages";
-                            var file = string.Format("{0}.png, doctor.DoctorID");
+                            var file = string.Format("{0}.png", doctor.DoctorID);
                             var response = FileHelpers.UploadPhoto(doctor.LogoFile, folder, file);
                             if (response)
                             {
@@ -226,6 +299,10 @@ namespace OnlineDiagnosticSystem.Controllers
 
                         }
 
+                    }
+                    else
+                    {
+                        ViewBag.Message = "Email Already Registered!";
                     }
                 }
             }
@@ -252,27 +329,31 @@ namespace OnlineDiagnosticSystem.Controllers
                 lab.UserID = user.UserID;
                 if (ModelState.IsValid)
                 {
-                    var finddoctor = db.DoctorTables.Where(d => d.EmailAddress == doctor.EmailAddress).FirstOrDefault();
-                    if (finddoctor == null)
+                    var findlab = db.LabTables.Where(d => d.EmailAddress == lab.EmailAddress).FirstOrDefault();
+                    if (findlab == null)
                     {
-                        db.DoctorTables.Add(doctor);
+                        db.LabTables.Add(lab);
                         db.SaveChanges();
-                        if (doctor.LogoFile != null)
+                        if (lab.LogoFile != null)
                         {
-                            var folder = "~/Content/DoctorImages";
-                            var file = string.Format("{0}.png, doctor.DoctorID");
-                            var response = FileHelpers.UploadPhoto(doctor.LogoFile, folder, file);
+                            var folder = "~/Content/LabPhotos";
+                            var file = string.Format("{0}.png", lab.LabID);
+                            var response = FileHelpers.UploadPhoto(lab.LogoFile, folder, file);
                             if (response)
                             {
                                 var pic = string.Format("{0}/{1}", folder, file);
-                                doctor.Photo = pic;
-                                db.Entry(doctor).State = EntityState.Modified;
+                                lab.Photo = pic;
+                                db.Entry(lab).State = EntityState.Modified;
                                 db.SaveChanges();
                                 return View("UnderReview");
                             }
 
                         }
 
+                    }
+                    else
+                    {
+                        ViewBag.Message = "Email Already Registered!";
                     }
                 }
             }
@@ -286,12 +367,56 @@ namespace OnlineDiagnosticSystem.Controllers
 
         public ActionResult AddPatient()
         {
+            ViewBag.GenderID = new SelectList(db.GenderTables.ToList(), "GenderID", "Name", "0"); 
             return View();
         }
         [HttpPost]
         public ActionResult AddPatient(PatientTable patient)
         {
-            return View();
+            if (Session["User"] != null)
+            {
+                var user = (UserTable)Session["User"];
+                patient.UserID = user.UserID;
+                if (ModelState.IsValid)
+                {
+                    var findpatient = db.PatientTables.Where(d => d.Email == patient.Email).FirstOrDefault();
+                    if (findpatient == null)
+                    {
+                        db.PatientTables.Add(patient);
+                        db.SaveChanges();
+                        if (patient.LogoFile != null)
+                        {
+                            var folder = "~/Content/PatientPhotos";
+                            var file = string.Format("{0}.png", patient.PatientID);
+                            var response = FileHelpers.UploadPhoto(patient.LogoFile, folder, file);
+                            if (response)
+                            {
+                                var pic = string.Format("{0}/{1}", folder, file);
+                                patient.Photo = pic;
+                                db.Entry(patient).State = EntityState.Modified;
+                                db.SaveChanges();
+                                
+                            }
+
+                        }
+                        return RedirectToAction("Login");
+
+                    }
+                    else
+                    {
+                        ViewBag.Message = "Email Already Registered!";
+                    }
+                }
+            }
+            else
+            {
+                return RedirectToAction("Login");
+            }
+
+
+
+            ViewBag.GenderID = new SelectList(db.GenderTables.ToList(), "GenderID", "Name", patient.GenderID); 
+            return View(patient);
         }
 
         public ActionResult UnderReview()
