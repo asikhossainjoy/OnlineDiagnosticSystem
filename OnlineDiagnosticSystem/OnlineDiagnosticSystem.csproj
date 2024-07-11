@@ -140,6 +140,8 @@
     <Content Include="Content\AdminTemplate\css\font-awesome.min.css" />
     <Content Include="Content\AdminTemplate\css\main.css" />
     <Content Include="Content\AdminTemplate\css\normalize.min.css" />
+    <Content Include="Content\AdminTemplate\css\sb-admin-2.css" />
+    <Content Include="Content\AdminTemplate\css\sb-admin-2.min.css" />
     <Content Include="Content\AdminTemplate\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\AdminTemplate\img\logo.png" />
     <Content Include="Content\AdminTemplate\js\custom.js" />
@@ -190,6 +192,7 @@
     <Content Include="Content\AdminTemplate\syntax-highlighter\styles\shThemeMDUltra.css" />
     <Content Include="Content\AdminTemplate\syntax-highlighter\styles\shThemeMidnight.css" />
     <Content Include="Content\AdminTemplate\syntax-highlighter\styles\shThemeRDark.css" />
+    <Content Include="Content\AdminTemplate\vendor\datatables\dataTables.bootstrap4.min.css" />
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -206,6 +209,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\bootstrap.rtl.css" />
     <Content Include="Content\bootstrap.rtl.min.css" />
+    <Content Include="Content\DeshboardTemplate\css.css" />
     <Content Include="Content\DeshboardTemplate\css\font-awesome.min.css" />
     <Content Include="Content\DeshboardTemplate\css\main.css" />
     <Content Include="Content\DeshboardTemplate\css\normalize.min.css" />
@@ -605,6 +609,7 @@
     <Content Include="Content\AdminTemplate\fonts\FontAwesome.otf" />
     <Content Include="Content\AdminTemplate\img\Thumbs.db" />
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
+    <Content Include="Scripts\jquery-3.3.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
     <Content Include="Scripts\jquery-3.4.1.min.js" />
     <Content Include="Scripts\jquery-3.4.1.slim.js" />
