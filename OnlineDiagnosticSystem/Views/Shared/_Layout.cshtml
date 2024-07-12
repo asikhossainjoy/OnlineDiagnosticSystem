@@ -53,13 +53,18 @@
             </a>
         </div>
         <nav class="left-nav" id="topFixedNavbar1">
+            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Toggle navigation" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
             <ul id="main-nav">
                 <li class="current"><a href="#welcome">Welcome</a></li>
                 <li>@Html.ActionLink("Change Password", "ChangePassword", "Home", null, null)</li>
                 @{
                     if (Session["UserTypeID"] != null)
                     {
-                        int value = Convert.ToInt32(Convert.ToString("UserTypeID"));
+                        var usertype = Convert.ToString(Session["UserTypeID"]);
+                        int value = Convert.ToInt32(usertype.Trim());
                         if (value == 1)
                         {
                             <li>@Html.ActionLink("Account Type", "Index", "AccountTypeTables", null, null)</li>
@@ -74,6 +79,7 @@
                         else if (value == 3)
                         {
                             //Lab User Access
+                            <li>@Html.ActionLink("Time Slot", "Index", "LabTimeSlotTables", null, null)</li>
                             <li>@Html.ActionLink("All test", "LabAllTest", "LabSetting", null, null)</li>
                             <li>@Html.ActionLink("Add Test", "AddTest", "LabSetting", null, null)</li>
                             <li>@Html.ActionLink("Current Appointment", "CurrentAppointment", "LabAppointment", null, null)</li>
@@ -114,7 +120,7 @@
                         }
                     }
                 }
-
+                <li>@Html.ActionLink("Logout", "LogoutUser", "Home", null, null)</li>
 
             </ul>
         </nav>

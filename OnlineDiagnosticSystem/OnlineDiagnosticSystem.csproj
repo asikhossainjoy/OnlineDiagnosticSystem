@@ -131,6 +131,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LabAppointmentController.cs" />
     <Compile Include="Controllers\LabSettingController.cs" />
+    <Compile Include="Controllers\LabTimeSlotTablesController.cs" />
     <Compile Include="Controllers\UserTablesController.cs" />
     <Compile Include="Controllers\UserTypeTablesController.cs" />
     <Compile Include="FileHelpers.cs" />
@@ -660,6 +661,17 @@
     <Content Include="Views\UserTables\Details.cshtml" />
     <Content Include="Views\UserTables\Edit.cshtml" />
     <Content Include="Views\UserTables\Index.cshtml" />
+    <Content Include="Views\LabSetting\LabAllTest.cshtml" />
+    <Content Include="Views\LabSetting\AddTest.cshtml" />
+    <Content Include="Views\LabSetting\TestDetails.cshtml" />
+    <Content Include="Views\LabSetting\AddTestDetails.cshtml" />
+    <Content Include="Views\LabSetting\EditTest.cshtml" />
+    <Content Include="Views\LabSetting\EditTestDetails.cshtml" />
+    <Content Include="Views\LabTimeSlotTables\Create.cshtml" />
+    <Content Include="Views\LabTimeSlotTables\Delete.cshtml" />
+    <Content Include="Views\LabTimeSlotTables\Details.cshtml" />
+    <Content Include="Views\LabTimeSlotTables\Edit.cshtml" />
+    <Content Include="Views\LabTimeSlotTables\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -668,7 +680,6 @@
     <Folder Include="Content\PatientPhotos\" />
     <Folder Include="Models\" />
     <Folder Include="Views\LabAppointment\" />
-    <Folder Include="Views\LabSetting\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
