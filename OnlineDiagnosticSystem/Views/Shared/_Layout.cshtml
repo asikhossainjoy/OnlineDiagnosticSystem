@@ -105,6 +105,13 @@
                         else if (value == 4)
                         {
                             //Patient User Access
+
+                            <li>@Html.ActionLink("All Labs", "GetAlllabs", "PatientAppoint", null, null)</li>
+                            <li>@Html.ActionLink("All Doctors", "GetAllDoctors", "PatientAppoint", null, null)</li>
+
+
+
+
                             <li>@Html.ActionLink("Pending(Lab) Appointment", "PendingAppointment", "PatientAppointment", null, null)</li>
                             <li>@Html.ActionLink("Current(Lab) Appointment", "CurrentAppointment", "PatientAppointment", null, null)</li>
                             <li>@Html.ActionLink("Cancel(Lab) Appointment", "CancelAppointment", "PatientAppointment", null, null)</li>
