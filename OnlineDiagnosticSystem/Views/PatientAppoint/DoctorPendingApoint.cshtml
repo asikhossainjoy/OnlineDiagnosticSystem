@@ -1,0 +1,81 @@
+﻿@model IEnumerable<DatabaseLayer.DoctorAppointTable>
+
+@{
+    ViewBag.Title = "DoctorPendingApoint";
+}
+
+<h2>DoctorPendingApoint</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AppointDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsFeeSubmit)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IsChecked)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TransectionNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DoctorComment)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DoctorTable.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DoctorTimeSlotTable.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PatientTable.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.AppointDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsFeeSubmit)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsChecked)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TransectionNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DoctorComment)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DoctorTable.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DoctorTimeSlotTable.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PatientTable.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.DoctorAppointID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.DoctorAppointID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.DoctorAppointID })
+        </td>
+    </tr>
+}
+
+</table>

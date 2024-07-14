@@ -678,6 +678,9 @@
     <Content Include="Views\DoctorTimeSlotTables\Index.cshtml" />
     <Content Include="Views\PatientAppoint\GetAllDoctors.cshtml" />
     <Content Include="Views\PatientAppoint\GetAlllabs.cshtml" />
+    <Content Include="Views\PatientAppoint\DoctorAppointment.cshtml" />
+    <Content Include="Views\PatientAppoint\DoctorProfile.cshtml" />
+    <Content Include="Views\PatientAppoint\DoctorPendingApoint.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
