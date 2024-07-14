@@ -38,6 +38,7 @@ namespace OnlineDiagnosticSystem.Controllers
             {
                 return RedirectToAction("Login", "Home");
             }
+            Session["docid"]=id;
             ViewBag.DoctorTimeSlotID =new SelectList(db.DoctorTimeSlotTables.Where(d => d.DoctorID == id && d.IsActive == true ), "DoctorTimeSlotID", "Name","0");
             ViewBag.Doctor = db.DoctorTables.Find(id);
 
@@ -54,6 +55,9 @@ namespace OnlineDiagnosticSystem.Controllers
             appointment.DoctorComment = string.Empty;
             appointment.IsChecked = false;
             appointment.IsFeeSubmit = false;
+            var patient = (PatientTable)Session["Patient"];
+            appointment.PatientID=patient.PatientID;
+            appointment.DoctorID = Convert.ToInt32(Convert.ToString(Session["docid"]));
             if(ModelState.IsValid) 
             {
                 var checktransectiono = db.DoctorAppointTables.Where(c => c.TransectionNo == appointment.TransectionNo).FirstOrDefault();

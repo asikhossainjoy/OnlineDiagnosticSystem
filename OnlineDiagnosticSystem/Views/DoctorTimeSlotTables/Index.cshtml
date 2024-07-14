@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<DatabaseLayer.DoctorTimeSlotTable>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Doctor Time Slot";
 }
 
 <h2>Doctor Time Slot</h2>
@@ -29,9 +29,10 @@
                         <th>
                             Status
                         </th>
-                        <th>Action's'</th>
+                        <th>Action's</th>
                     </tr>
-                <thead id="searchvalue">
+                </thead>
+                <tbody id="searchvalue">
                     @foreach (var item in Model)
                     {
                         <tr>
@@ -52,7 +53,7 @@
                             </td>
                         </tr>
                     }
-                </thead>
+                </tbody>
             </table>
         </div>
     </div>
