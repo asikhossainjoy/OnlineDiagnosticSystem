@@ -125,6 +125,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AccountTypeTablesController.cs" />
+    <Compile Include="Controllers\DoctorAppointStatusController.cs" />
     <Compile Include="Controllers\DoctorTimeSlotTablesController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LabAppointmentController.cs" />
@@ -681,6 +682,11 @@
     <Content Include="Views\PatientAppoint\DoctorAppointment.cshtml" />
     <Content Include="Views\PatientAppoint\DoctorProfile.cshtml" />
     <Content Include="Views\PatientAppoint\DoctorPendingApoint.cshtml" />
+    <Content Include="Views\DoctorAppointStatus\PendingAppoint.cshtml" />
+    <Content Include="Views\DoctorAppointStatus\CurrentAppoint.cshtml" />
+    <Content Include="Views\DoctorAppointStatus\CompleteAppoint.cshtml" />
+    <Content Include="Views\DoctorAppointStatus\CancelAppoint.cshtml" />
+    <Content Include="Views\DoctorAppointStatus\AllAppoint.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
