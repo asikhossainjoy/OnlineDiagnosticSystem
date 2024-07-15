@@ -97,6 +97,18 @@ namespace OnlineDiagnosticSystem.Controllers
             return View(doc);
         }
 
+        public ActionResult DoctorPendingApoint(int? id)
+        {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            var userid = Convert.ToInt32(Convert.ToString(Session["UserID"]));
+            int patientid = db.PatientTables.Where(p => p.UserID == userid).FirstOrDefault().PatientID;
+            var appointmentlist = db.DoctorAppointTables.Where(p => p.PatientID == patientid && p.IsFeeSubmit == false && p.IsChecked == false);
+            return View(appointmentlist);
+        }
+
 
         public ActionResult LabTests(int? id)
         {
@@ -117,7 +129,7 @@ namespace OnlineDiagnosticSystem.Controllers
                 return RedirectToAction("Login", "Home");
             }
             
-            int labid=db.LabTables.Find(id).LabID;
+            int labid = db.LabTables.Find(id).LabID;
             var patient = (PatientTable)Session["Patient"];
             var appointment = new LabAppointTable()
             {
@@ -126,7 +138,7 @@ namespace OnlineDiagnosticSystem.Controllers
                 PatientID=patient.PatientID
             };
             ViewBag.LabTimeSlotID = new SelectList(db.LabTimeSlotTables.Where(d => d.LabID  == id && d.IsActive == true), "LabTimeSlotID", "Name", "0");
-            return View();
+            return View(appointment);
 
         }
 

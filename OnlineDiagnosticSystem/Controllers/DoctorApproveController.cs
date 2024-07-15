@@ -67,6 +67,7 @@ namespace OnlineDiagnosticSystem.Controllers
 
             return View(appoint);
         }
+
         [HttpPost]
         public ActionResult ChangeStatus(DoctorAppointTable app)
         {
@@ -87,7 +88,7 @@ namespace OnlineDiagnosticSystem.Controllers
             return View(app);
 
         }
-        [HttpPost]
+
         public ActionResult CurrentAppoint()
         {
             if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
@@ -102,6 +103,7 @@ namespace OnlineDiagnosticSystem.Controllers
 
 
         }
+
         public ActionResult ProcessAppointment(int ? id)
         {
             if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))

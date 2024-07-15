@@ -70,24 +70,25 @@
                                 @Html.DisplayFor(modelItem => item.Description)
                             </td>
                             <td>
+                                @{
 
+                                    if (item.IsChecked == true && item.IsFeeSubmit == true && item.DoctorComment.Length > 0)
+                                    {
+                                        <h4 class="blod" style="color:blue;">Complete</h4>
+                                    }
 
-                                if (item.IsChecked == true && item.IsFeeSubmit == true && item.DoctorComment.Length > 0)
-                                {
-                                <h4 class="blod" style="color:blue;">Complete</h4>
-                                }
-                                else if (item.IsChecked == false && item.IsFeeSubmit == true && item.DoctorComment.Length > 0)
-                                {
-                                <h4 class="blod" style="color:red;">Cancel</h4>
-                                }
-                                else if (item.IsChecked == false && item.IsFeeSubmit == false && item.DoctorComment.Length == 0)
-                                {
-                                <h4 class="blod" style="color:blue;">Pending</h4>
-                                }
-                                else if (item.IsChecked == false && item.IsFeeSubmit == false && item.DoctorComment.Length > 0)
-                                {
-                                <h4 class="blod" style="color:red;">Rejected</h4>
-                                }
+                                    else if (item.IsChecked == false && item.IsFeeSubmit == false && item.DoctorComment.Length == 0)
+                                    {
+                                        <h4 class="blod" style="color:blue;">Pending</h4>
+                                    }
+                                    else if (item.IsChecked == false && item.IsFeeSubmit == false && item.DoctorComment.Length > 0)
+                                    {
+                                        <h4 class="blod" style="color:red;">Rejected</h4>
+                                    }
+                                    else
+                                    {
+                                        <h4 class="blod" style="color:red;">Cancel</h4>
+                                    }
                                 }
 
                             </td>
