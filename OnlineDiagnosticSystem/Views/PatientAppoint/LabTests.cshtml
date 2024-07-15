@@ -1,10 +1,12 @@
-﻿@model IEnumerable<DatabaseLayer.LabTable>
+﻿@model IEnumerable<DatabaseLayer.LabTestTable>
 
 @{
-    ViewBag.Title = "All Labs";
+    ViewBag.Title = "LabTests";
 }
 
-<h2>All Labs's</h2>
+<h2>Select Your Test</h2>
+
+
 <script src="~/Scripts/jquery-3.3.1.min.js"></script>
 <div class="card shadow mb-4">
     <div class="card-header py-3">
@@ -16,24 +18,11 @@
                 <thead>
                     <tr>
                         <th>
-                            Lab Title
+                            Test Name
                         </th>
                         <th>
-                            Photo
+                            Cost
                         </th>
-                        <th>
-                            Contact No
-                        </th>
-                        <th>
-                            Phone No
-                        </th>
-                        <th>
-                            Email Address
-                        </th>
-                        <th>
-                            About Lab
-                        </th>
-
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -45,26 +34,13 @@
                                 @Html.DisplayFor(modelItem => item.Name)
                             </td>
                             <td>
-                                @{ if (!string.IsNullOrEmpty(item.Photo))
-                                    {
-                                        <img src="@Url.Content(item.Photo)" alt="Image" style="width: 50px; height:50px;max-width: 100%; height: auto;" />
-                                    }
-                                }
+                                @Html.DisplayFor(modelItem => item.Cost)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.ContactNo)
+                                @Html.DisplayFor(modelItem => item.LabTable.Name)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.PhoneNo)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.EmailAddress)
-                            </td>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.AboutLab)
-                            </td>
-                            <td>
-                                @Html.ActionLink("Appointment", "LabTests ", new { id = item.LabID }, new { @class = "genric-btn primary" })
+                                @Html.ActionLink("Select", "LabAppointment", new { id = item.LabTestID }, new { @class = "genric-btn success" }) |
                             </td>
                         </tr>
                     }
