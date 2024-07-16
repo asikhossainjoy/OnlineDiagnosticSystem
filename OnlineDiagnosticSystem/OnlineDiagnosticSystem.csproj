@@ -131,6 +131,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\LabAppointmentController.cs" />
     <Compile Include="Controllers\LabAppointStatusController.cs" />
+    <Compile Include="Controllers\LabApproveController.cs" />
     <Compile Include="Controllers\LabSettingController.cs" />
     <Compile Include="Controllers\LabTables.cs" />
     <Compile Include="Controllers\LabTimeSlotTablesController.cs" />
@@ -703,6 +704,11 @@
     <Content Include="Views\DoctorApprove\ProcessAppointment.cshtml" />
     <Content Include="Views\DoctorApprove\AllAppoint.cshtml" />
     <Content Include="Views\DoctorApprove\CompleteAppointment.cshtml" />
+    <Content Include="Views\LabApprove\ChangeStatus.cshtml" />
+    <Content Include="Views\LabApprove\PendingAppoint.cshtml" />
+    <Content Include="Views\LabApprove\CompleteAppointment.cshtml" />
+    <Content Include="Views\LabApprove\CurrentAppoint.cshtml" />
+    <Content Include="Views\LabApprove\AllAppoint.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

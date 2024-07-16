@@ -8,7 +8,7 @@ namespace OnlineDiagnosticSystem.Controllers
     public class DoctorApproveController : Controller
     {
         private OnlineDiagnosticLabSystemDbEntities db = new OnlineDiagnosticLabSystemDbEntities();
-        private int d;
+        
 
         // GET: DoctorApprove
         public ActionResult PendingAppoint()
