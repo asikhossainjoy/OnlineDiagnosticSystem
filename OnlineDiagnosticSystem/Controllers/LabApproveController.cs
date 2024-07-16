@@ -102,6 +102,17 @@ namespace OnlineDiagnosticSystem.Controllers
             return View(app);
 
         }
+        public ActionResult ProcessAppointment(int? id)
+        {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            var appoint = db.LabAppointTables.Find(id);
+            ViewBag.LabTimeSlotID = new SelectList(db.LabTimeSlotTables.Where(d => d.LabID == appoint.LabID), "LabTimeSlotID", "Name", appoint.LabTimeSlotID);
+
+            return View(appoint);
+        }
 
 
     }
