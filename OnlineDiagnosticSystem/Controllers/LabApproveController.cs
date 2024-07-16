@@ -194,11 +194,6 @@ namespace OnlineDiagnosticSystem.Controllers
                 db.SaveChanges();
 
                 return RedirectToAction("PendingAppoint");
-
-
-
-
-
             }
             else
             {
@@ -210,6 +205,16 @@ namespace OnlineDiagnosticSystem.Controllers
         }
         public ActionResult ViewDetails(int? id)
         {
+
+            ViewBag.TestName= db.LabAppointTables.Find(id).LabTestTable.Name;
+            ViewBag.Lab= db.LabAppointTables.Find(id).LabTable.Name;
+            ViewBag.Patient= db.LabAppointTables.Find(id).PatientTable.Name;
+            ViewBag.AppointmentNo= db.LabAppointTables.Find(id).TransectionNo;
+            ViewBag.LabLogo = db.LabAppointTables.Find(id).LabTable.Photo;
+            ViewBag.PatientPhoto = db.LabAppointTables.Find(id).PatientTable.Photo;
+
+
+
             return View(db.PatientTestDetailTables.Where(p => p.LabAppointID == id).ToList());
 
         }
