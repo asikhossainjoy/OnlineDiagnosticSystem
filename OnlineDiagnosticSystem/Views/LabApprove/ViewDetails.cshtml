@@ -1,0 +1,43 @@
+﻿@model IEnumerable<DatabaseLayer.PatientTestDetailTable>
+
+@{
+    ViewBag.Title = "ViewDetails";
+}
+
+<h2>ViewDetails</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.PatientValue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LabAppointTable.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LabTestDetailsTable.Name)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.PatientValue)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LabAppointTable.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LabTestDetailsTable.Name)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.LabAppointDetailID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.LabAppointDetailID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.LabAppointDetailID })
+        </td>
+    </tr>
+}
+
+</table>

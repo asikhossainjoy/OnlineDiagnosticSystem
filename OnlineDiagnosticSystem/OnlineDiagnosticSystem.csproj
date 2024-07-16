@@ -143,7 +143,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\PatientAppointReportMV.cs" />
-    <Compile Include="Models\Class3.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -712,6 +711,7 @@
     <Content Include="Views\LabApprove\CurrentAppoint.cshtml" />
     <Content Include="Views\LabApprove\AllAppoint.cshtml" />
     <Content Include="Views\LabApprove\ProcessAppointment.cshtml" />
+    <Content Include="Views\LabApprove\ViewDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

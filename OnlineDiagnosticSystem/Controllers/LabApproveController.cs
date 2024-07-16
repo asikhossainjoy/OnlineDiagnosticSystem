@@ -20,7 +20,7 @@ namespace OnlineDiagnosticSystem.Controllers
             }
 
             var lab = (LabTable)Session["Lab"];
-            var pendingappointment = db.LabAppointTables.Where(d => d.LabID == lab.LabID && d.IsFeeSubmit == false && d.IsFeeSubmit == false );
+            var pendingappointment = db.LabAppointTables.Where(d => d.LabID == lab.LabID && d.IsFeeSubmit == false && d.IsFeeSubmit == false);
             return View(pendingappointment);
 
 
@@ -63,7 +63,7 @@ namespace OnlineDiagnosticSystem.Controllers
             }
 
             var lab = (LabTable)Session["Lab"];
-            var allappointment = db.LabAppointTables.Where(d => d.LabID == lab.LabID );
+            var allappointment = db.LabAppointTables.Where(d => d.LabID == lab.LabID);
             return View(allappointment);
 
 
@@ -113,7 +113,7 @@ namespace OnlineDiagnosticSystem.Controllers
 
             var appoint = db.LabAppointTables.Find(id);
             var testdetails = db.LabTestDetailsTables.Where(p => p.LabTestID == appoint.LabTestID);
-            foreach( var item in testdetails )
+            foreach (var item in testdetails)
             {
                 var details = new PatientAppointReportMV()
                 {
@@ -127,16 +127,118 @@ namespace OnlineDiagnosticSystem.Controllers
 
                 };
                 detaillist.Add(details);
-                
+
             }
-            
-
-
-            ViewBag.TestName= appoint.LabTestTable.Name;
-
+            ViewBag.TestName = appoint.LabTestTable.Name;
             return View(detaillist);
         }
 
+        [HttpPost]
+        public ActionResult ProcessAppointment(FormCollection collection)
+        {
+            if (string.IsNullOrEmpty(Convert.ToString(Session["UserName"])))
+            {
+                return RedirectToAction("Login", "Home");
+            }
+            string[] LabTestDetailID = collection["item.LabTestDetailID"].Split(',');
+            string[] LabAppointID = collection["item.LabAppointID"].Split(',');
+            string[] DetailName = collection["item.DetailName"].Split(',');
+            string[] MinValue = collection["item.MinValue"].Split(',');
+            string[] MaxValue = collection["item.MaxValue"].Split(',');
+            string[] PatientValue = collection["item.PatientValue"].Split(',');
+            List<PatientAppointReportMV> detaillist = new List<PatientAppointReportMV>();
+            bool issubmit = false;
+            for (int i = 0; i < LabTestDetailID.Length; i++)
+            {
+                var details = new PatientAppointReportMV()
+                {
+                    DetailName = DetailName[i],
+                    LabAppointID = Convert.ToInt32(LabAppointID[i]),
+                    LabTestDetailID = Convert.ToInt32(LabTestDetailID[i]),
+                    MaxValue = Convert.ToInt32(MaxValue[i]),
+                    MinValue = Convert.ToInt32(MinValue[i]),
+                    PatientValue = Convert.ToInt32(PatientValue[i]),
 
+                };
+                if(details.PatientValue> 0)
+                {
+                    issubmit = true;
+                }
+                detaillist.Add(details);
+            }
+            if (issubmit ==true)
+            {
+
+
+
+
+                foreach (var item in detaillist)
+                {
+
+                    var pdetails = new PatientTestDetailTable()
+                    {
+                        LabAppointID = item.LabAppointID,
+                        LabTestDetailID = item.LabTestDetailID,
+                        PatientValue = item.PatientValue
+
+                    };
+                    db.PatientTestDetailTables.Add(pdetails);
+                    db.SaveChanges();
+
+                }
+                int appointid = Convert.ToInt32(LabAppointID[0]);
+
+                var appoint = db.LabAppointTables.Find(appointid);
+                appoint.IsComplete = true;
+                db.Entry(appoint).State = System.Data.Entity.EntityState.Modified;
+                db.SaveChanges();
+
+                return RedirectToAction("PendingAppoint");
+
+
+
+
+
+            }
+            else
+            {
+                ViewBag.Message = "Please Enter Patient Test Details!";
+            }
+            return View(detaillist);
+
+
+        }
+        public ActionResult ViewDetails(int? id)
+        {
+            return View(db.PatientTestDetailTables.Where(p => p.LabAppointID == id).ToList());
+
+        }
     }
 }
+
+            
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+
+
+            
