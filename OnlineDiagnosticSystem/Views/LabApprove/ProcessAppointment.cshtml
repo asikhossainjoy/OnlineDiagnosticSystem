@@ -1,72 +1,87 @@
-﻿@model DatabaseLayer.LabTestDetailsTable
+﻿@model IEnumerable<OnlineDiagnosticSystem.Models.PatientAppointReportMV>
 
 @{
-    ViewBag.Title = "ProcessAppointment";
+    ViewBag.Title = "Report";
 }
 
-<h2>ProcessAppointment</h2>
+<h2>Enter Patient Report Details: @ViewBag.TestName</h2>
+
+<script src="~/Scripts/jquery-3.3.1.min.js"></script>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+
+        <input type="text" id="search" name="search" class="form-control col-md-3" style="float:right;" placeholder="search here" />
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+
+                        <th style="display:none;">
+                            LabAppointID
+                        </th>
+                        <th style="display:none;">
+                            LabTestDetailID
+                        </th>
+                        <th>
+                            Report Detail
+                        </th>
+                        <th>
+                            Min Value
+                        </th>
+                        <th>
+                            Max Value
+                        </th>
+                        <th>
+                            PatientValue
+                        </th>
 
 
-@using (Html.BeginForm()) 
-{
-    @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>LabTestDetailsTable</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.LabTestID, "LabTestID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("LabTestID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.LabTestID, "", new { @class = "text-danger" })
-            </div>
-        </div>
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.LabID, "LabID", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("LabID", null, htmlAttributes: new { @class = "form-control" })
-                @Html.ValidationMessageFor(model => model.LabID, "", new { @class = "text-danger" })
-            </div>
-        </div>
+                    </tr>
+                </thead>
+                <tbody id="searchvalue">
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td style="display:none;">
+                                @Html.DisplayFor(modelItem => item.LabAppointID)
+                            </td>
+                            <td style="display:none;">
+                                @Html.DisplayFor(modelItem => item.LabTestDetailID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.DetailName)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MinValue)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.MaxValue)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.PatientValue)
+                            </td>
+                            
+                            
+                        </tr>
+                    }
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Name, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Name, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.MinValue, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MinValue, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MinValue, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.MaxValue, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.MaxValue, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.MaxValue, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+                </tbody>
+            </table>
         </div>
     </div>
-}
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#search").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#searchvalue tr").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
+
