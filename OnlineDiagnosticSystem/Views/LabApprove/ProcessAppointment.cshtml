@@ -48,25 +48,30 @@
 
                         </tr>
                     </thead>
-                    <tbody 
+                    <tbody >
                            @foreach (var item in Model) {<tr>
                             <td style="display:none;">
+                                @Html.HiddenFor(modelItem => item.LabAppointID)
                                 @Html.DisplayFor(modelItem => item.LabAppointID)
                             </td>
                             <td style="display:none;">
+                                @Html.HiddenFor(modelItem => item.LabTestDetailID)
                                 @Html.DisplayFor(modelItem => item.LabTestDetailID)
                             </td>
                             <td>
+                                @Html.HiddenFor(modelItem => item.DetailName)
                                 @Html.DisplayFor(modelItem => item.DetailName)
                             </td>
                             <td>
+                                @Html.HiddenFor(modelItem => item.MinValue)
                                 @Html.DisplayFor(modelItem => item.MinValue)
                             </td>
                             <td>
+                                @Html.HiddenFor(modelItem => item.MaxValue)
                                 @Html.DisplayFor(modelItem => item.MaxValue)
                             </td>
                             <td>
-                                @Html.DisplayFor(modelItem => item.PatientValue)
+                                @Html.EditorFor(modelItem => item.PatientValue)
                             </td>
 
 

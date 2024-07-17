@@ -140,12 +140,15 @@ namespace OnlineDiagnosticSystem.Controllers
             {
                 return RedirectToAction("Login", "Home");
             }
-            string[] LabTestDetailID = collection["item.LabTestDetailID"].Split(',');
-            string[] LabAppointID = collection["item.LabAppointID"].Split(',');
-            string[] DetailName = collection["item.DetailName"].Split(',');
-            string[] MinValue = collection["item.MinValue"].Split(',');
-            string[] MaxValue = collection["item.MaxValue"].Split(',');
-            string[] PatientValue = collection["item.PatientValue"].Split(',');
+            
+
+                string[] LabTestDetailID = collection["item.LabTestDetailID"].Split(',');
+                string[] LabAppointID = collection["item.LabAppointID"].Split(',');
+                string[] DetailName = collection["item.DetailName"].Split(',');
+                string[] MinValue = collection["item.MinValue"].Split(',');
+                string[] MaxValue = collection["item.MaxValue"].Split(',');
+                string[] PatientValue = collection["item.PatientValue"].Split(',');
+            
             List<PatientAppointReportMV> detaillist = new List<PatientAppointReportMV>();
             bool issubmit = false;
             for (int i = 0; i < LabTestDetailID.Length; i++)

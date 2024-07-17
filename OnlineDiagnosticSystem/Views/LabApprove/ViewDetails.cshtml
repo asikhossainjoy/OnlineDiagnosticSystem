@@ -12,11 +12,31 @@
     <title>Print Report</title>
     @Styles.Render("~/Content/css")
     @Styles.Render("~/bundles/modernizr")
+    <style>
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #f8f9fa;
+            text-decoration: none;
+            color: #333;
+        }
+
+            .btn:hover {
+                background-color: #e2e6ea;
+            }
+
+        .btn-default {
+            /* Additional styles for .btn-default if needed */
+        }
+    </style>
 </head>
 <body>
     <div class="form-group">
         <a href="javascript:window.print()" style="float:left; margin:30px;" class="btn btn-default">
-            <i class="fas fa-print"></i>
+            <i class="fas fa-print"></i> Print
         </a>
 
         <table class="table table-bordered">
