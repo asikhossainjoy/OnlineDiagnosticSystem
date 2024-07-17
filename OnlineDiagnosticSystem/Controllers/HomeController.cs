@@ -22,6 +22,81 @@ namespace OnlineDiagnosticSystem.Controllers
             return View();
         }
 
+        public ActionResult AdminLogin()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult AdminLogin(string email, string password)
+        {
+            if (string.IsNullOrEmpty(email) && string.IsNullOrEmpty(password))
+            {
+                return View("Login");
+            }
+
+            var user = db.UserTables.Where(u => u.Email == email && u.Password == password && u.isVerified == true).FirstOrDefault();
+            if (user != null && (user.UserTypeID == 2 || user.UserTypeID == 3 || user.UserTypeID == 1))
+            {
+                Session["UserID"] = user.UserID;
+                Session["UserTypeID"] = user.UserTypeID;
+                Session["UserName"] = user.UserName;
+                Session["Password"] = user.Password;
+                Session["Email"] = user.Email;
+                Session["ContactNo"] = user.ContactNo;
+                Session["Description"] = user.Description;
+                Session["isVerified"] = user.isVerified;
+                if (user.UserTypeID == 2) //Doctor
+                {
+                    var doc = db.DoctorTables.Where(u => u.UserID == user.UserID).FirstOrDefault();
+                    Session["Doctor"] = doc;
+                }
+                else if (user.UserTypeID == 3) //Lab
+                {
+                    var lab = db.LabTables.Where(u => u.UserID == user.UserID).FirstOrDefault();
+                    Session["Lab"] = lab;
+                }
+               
+                return View("Index");
+            }
+
+            user = db.UserTables.Where(u => u.Email == email && u.Password == password && u.isVerified == false).FirstOrDefault();
+            if (user != null && (user.UserTypeID == 2 || user.UserTypeID == 3 || user.UserTypeID == 1))
+            {
+
+
+
+                ViewBag.Message = "Email is Already Registerd, Please Enter Profile Details!";
+                Session["User"] = user;
+
+                if (user.UserTypeID == 2) //Doctor
+                {
+
+                    var doc = db.DoctorTables.Where(u => u.UserID == user.UserID).FirstOrDefault();
+                    if (doc == null)
+                    {
+                        return RedirectToAction("AddDoctor");
+                    }
+                    ViewBag.Message = "Account is Under Review!";
+
+                }
+                else if (user.UserTypeID == 3) //Lab
+                {
+                    var lab = db.LabTables.Where(u => u.UserID == user.UserID).FirstOrDefault();
+                    if (lab == null)
+                    {
+                        return RedirectToAction("AddLab");
+                    }
+                    ViewBag.Message = "Account is Under Review!";
+                }
+            }
+            else
+            {
+                ViewBag.message = "User Name And Password is incorrect!";
+            }
+            Logout();
+            return View("AdminLogin");
+        }
 
         public ActionResult StartTemplate()
         {
@@ -56,7 +131,7 @@ namespace OnlineDiagnosticSystem.Controllers
             }
 
             var user = db.UserTables.Where(u => u.Email == email && u.Password == password && u.isVerified == true).FirstOrDefault();
-            if(user != null)
+            if(user != null && user.UserTypeID == 4)
             {
                 Session["UserID"] = user.UserID;
                 Session["UserTypeID"] = user.UserTypeID;
@@ -66,7 +141,7 @@ namespace OnlineDiagnosticSystem.Controllers
                 Session["ContactNo"] = user.ContactNo;
                 Session["Description"] = user.Description;
                 Session["isVerified"] = user.isVerified;
-                if (user.UserTypeID == 2) //Doctor
+                /*if (user.UserTypeID == 2) //Doctor
                 {
                     var doc = db.DoctorTables.Where(u => u.UserID == user.UserID).FirstOrDefault();
                     Session["Doctor"] = doc;
@@ -75,8 +150,8 @@ namespace OnlineDiagnosticSystem.Controllers
                 {
                     var lab = db.LabTables.Where(u => u.UserID == user.UserID).FirstOrDefault();
                     Session["Lab"] = lab;
-                }
-                else if (user.UserTypeID == 4)  //Patient
+                }*/
+                if (user.UserTypeID == 4)  //Patient
                 {
                     var pat = db.PatientTables.Where(u => u.UserID == user.UserID).FirstOrDefault();
                     Session["Patient"] = pat;
@@ -85,7 +160,7 @@ namespace OnlineDiagnosticSystem.Controllers
             }
 
             user = db.UserTables.Where(u => u.Email == email && u.Password == password && u.isVerified == false).FirstOrDefault();
-            if (user != null)
+            if (user != null && user.UserTypeID == 4)
             {
 
 
@@ -93,7 +168,7 @@ namespace OnlineDiagnosticSystem.Controllers
                 ViewBag.Message = "Email is Already Registerd, Please Enter Profile Details!";
                 Session["User"] = user;
 
-                if (user.UserTypeID == 2) //Doctor
+                /*if (user.UserTypeID == 2) //Doctor
                 {
 
                     var doc = db.DoctorTables.Where(u => u.UserID == user.UserID).FirstOrDefault();
@@ -113,7 +188,7 @@ namespace OnlineDiagnosticSystem.Controllers
                     }
                     ViewBag.Message = "Account is Under Review!";
                 }
-                else if (user.UserTypeID == 4)  //Patient
+                else */if (user.UserTypeID == 4)  //Patient
                 {
                     var pat = db.PatientTables.Where(u => u.UserID == user.UserID).FirstOrDefault();
                     if (pat == null)
@@ -182,25 +257,25 @@ namespace OnlineDiagnosticSystem.Controllers
         }
 
 
-        public ActionResult CreateUser()
+        public ActionResult AdminCreateUser()
         {
-            ViewBag.UserTypeID = new SelectList(db.UserTypeTables.Where(u => u.UserTypeID != 1), "UserTypeID", "UserType", "0");
+            ViewBag.UserTypeID = new SelectList(db.UserTypeTables.Where(u => u.UserTypeID != 1 && u.UserTypeID !=4 ), "UserTypeID", "UserType", "0");
 
             return View();
         }
 
         [HttpPost]
-        public ActionResult CreateUser(UserTable user)
+        public ActionResult AdminCreateUser(UserTable user)
         {
-            if(user != null)
+            if (user != null)
             {
-                if(ModelState.IsValid)
+                if (ModelState.IsValid)
                 {
-                    var finduser =  db.UserTables.Where(u=>u.Email == user.Email).FirstOrDefault();
-                    if(finduser == null)
+                    var finduser = db.UserTables.Where(u => u.Email == user.Email).FirstOrDefault();
+                    if (finduser == null)
                     {
                         finduser = db.UserTables.Where(u => u.Email == user.Email && u.isVerified == false).FirstOrDefault();
-                        if(finduser == null) 
+                        if (finduser == null)
                         {
                             if (user.UserTypeID == 2) //Doctor
                             {
@@ -210,10 +285,10 @@ namespace OnlineDiagnosticSystem.Controllers
                             {
                                 user.isVerified = false;
                             }
-                            else if (user.UserTypeID == 4)  //Patient
+                            /*else if (user.UserTypeID == 4)  //Patient
                             {
                                 user.isVerified = true;
-                            }
+                            }*/
                             else if (user.UserTypeID == 1)  //Admin
                             {
                                 user.isVerified = false;
@@ -231,17 +306,17 @@ namespace OnlineDiagnosticSystem.Controllers
                             {
                                 return RedirectToAction("AddLab");
                             }
-                            else if (user.UserTypeID == 4)  //Patient
+                            /*else if (user.UserTypeID == 4)  //Patient
                             {
                                 return RedirectToAction("AddPatient");
-                            }
+                            }*/
                             else if (user.UserTypeID == 1)  //Admin
                             {
                                 ViewBag.Message = "Account is Under Review!";
                             }
 
                         }
-                        
+
 
                     }
                     else
@@ -270,7 +345,117 @@ namespace OnlineDiagnosticSystem.Controllers
                             }
                             ViewBag.Message = "Account is Under Review!";
                         }
-                        else if (user.UserTypeID == 4)  //Patient
+                        /*else if (user.UserTypeID == 4)  //Patient
+                        {
+                            var pat = db.PatientTables.Where(u => u.UserID == finduser.UserID).FirstOrDefault();
+                            if (pat == null)
+                            {
+                                return RedirectToAction("AddPatient");
+                            }
+                            ViewBag.Message = "Account is Under Review!";
+                        }*/
+
+                    }
+                }
+            }
+            else
+            {
+                ViewBag.Message = "Please Provide Correct Details!";
+            }
+
+
+            ViewBag.UserTypeID = new SelectList(db.UserTypeTables.Where(u => u.UserTypeID != 1 && u.UserTypeID != 4), "UserTypeID", "UserType", "0");
+            return View("AdminCreateUser");
+        }
+        public ActionResult CreateUser()
+        {
+            ViewBag.UserTypeID = new SelectList(db.UserTypeTables.Where(u => u.UserTypeID != 1 && u.UserTypeID != 2 && u.UserTypeID !=3), "UserTypeID", "UserType", "0");
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult CreateUser(UserTable user)
+        {
+            if(user != null)
+            {
+                if(ModelState.IsValid)
+                {
+                    var finduser =  db.UserTables.Where(u=>u.Email == user.Email).FirstOrDefault();
+                    if(finduser == null)
+                    {
+                        finduser = db.UserTables.Where(u => u.Email == user.Email && u.isVerified == false).FirstOrDefault();
+                        if(finduser == null) 
+                        {
+                            /*if (user.UserTypeID == 2) //Doctor
+                            {
+                                user.isVerified = false;
+                            }
+                            else if (user.UserTypeID == 3) //Lab
+                            {
+                                user.isVerified = false;
+                            }
+                            els*/if (user.UserTypeID == 4)  //Patient
+                            {
+                                user.isVerified = true;
+                            }
+                            /*else if (user.UserTypeID == 1)  //Admin
+                            {
+                                user.isVerified = false;
+                            }*/
+                            db.UserTables.Add(user);
+                            db.SaveChanges();
+
+                            Session["User"] = user;
+
+                            /*if (user.UserTypeID == 2) //Doctor
+                            {
+                                return RedirectToAction("AddDoctor");
+                            }
+                            else if (user.UserTypeID == 3) //Lab
+                            {
+                                return RedirectToAction("AddLab");
+                            }
+                            else */if (user.UserTypeID == 4)  //Patient
+                            {
+                                return RedirectToAction("AddPatient");
+                            }
+                            /*else if (user.UserTypeID == 1)  //Admin
+                            {
+                                ViewBag.Message = "Account is Under Review!";
+                            }*/
+
+                        }
+                        
+
+                    }
+                    else
+                    {
+
+                        ViewBag.Message = "Email is Already Registerd, Please Enter Profile Details!";
+                        Session["User"] = finduser;
+
+                        /*if (finduser.UserTypeID == 2) //Doctor
+                        {
+
+                            var doc = db.DoctorTables.Where(u => u.UserID == finduser.UserID).FirstOrDefault();
+                            if (doc == null)
+                            {
+                                return RedirectToAction("AddDoctor");
+                            }
+                            ViewBag.Message = "Account is Under Review!";
+
+                        }
+                        else if (user.UserTypeID == 3) //Lab
+                        {
+                            var lab = db.LabTables.Where(u => u.UserID == finduser.UserID).FirstOrDefault();
+                            if (lab == null)
+                            {
+                                return RedirectToAction("AddLab");
+                            }
+                            ViewBag.Message = "Account is Under Review!";
+                        }
+                        else */if (user.UserTypeID == 4)  //Patient
                         {
                             var pat = db.PatientTables.Where(u => u.UserID == finduser.UserID).FirstOrDefault();
                             if (pat == null)
@@ -289,7 +474,7 @@ namespace OnlineDiagnosticSystem.Controllers
             }
             
             
-            ViewBag.UserTypeID = new SelectList(db.UserTypeTables.Where(u => u.UserTypeID != 1), "UserTypeID", "UserType", "0"); 
+            ViewBag.UserTypeID = new SelectList(db.UserTypeTables.Where(u => u.UserTypeID != 1 && u.UserTypeID != 2 && u.UserTypeID != 3), "UserTypeID", "UserType", "0"); 
             return View("CreateUser");
         }
 

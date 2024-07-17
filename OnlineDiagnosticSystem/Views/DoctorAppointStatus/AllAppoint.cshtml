@@ -73,12 +73,14 @@
                                 @Html.DisplayFor(modelItem => item.DoctorComment)
                             </td>
                             <td>
+
                                 @{
                                     if (item.IsChecked == true && item.IsFeeSubmit == true && item.DoctorComment.Length > 0)
                                     {
                                         <h4 class="blod" style="color:blue;">Complete</h4>
                                     }
-                                    else if (item.IsChecked == false && item.IsFeeSubmit == true && item.DoctorComment.Length > 0)
+                                    
+                                    else if (item.IsChecked == false && item.IsFeeSubmit == true && item.AppointDate < DateTime.Now)
                                     {
                                         <h4 class="blod" style="color:red;">Cancel</h4>
                                     }
@@ -90,6 +92,23 @@
                                     {
                                         <h4 class="blod" style="color:red;">Rejected</h4>
                                     }
+
+                                    /*if (item.IsComplete == true && item.IsFeeSubmit == true)
+                                    {
+                                        <h4 class="blod" style="color:blue;">Complete</h4>
+                                    }
+                                    else if (item.IsComplete == false && item.IsFeeSubmit == true && item.AppointDate < DateTime.Now)
+                                    {
+                                        <h4 class="blod" style="color:red;">Cancel</h4>
+                                    }
+                                    else if (item.IsComplete == false && item.IsFeeSubmit == false && item.AppointDate >= DateTime.Now)
+                                    {
+                                        <h4 class="blod" style="color:blue;">Pending</h4>
+                                    }
+                                    else if (item.IsComplete == false && item.IsFeeSubmit == false && item.AppointDate < DateTime.Now)
+                                    {
+                                        <h4 class="blod" style="color:red;">Rejected</h4>
+                                    }*/
                                 }
                             </td>
                         </tr>

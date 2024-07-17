@@ -74,6 +74,7 @@
                             <li>@Html.ActionLink("All Doctors", "Index", "UserTables", null, null)</li>
                             <li>@Html.ActionLink("All Lab's", "Index", "UserTables", null, null)</li>
                             <li>@Html.ActionLink("All Patient's", "Index", "UserTables", null, null)</li>
+                            <li>@Html.ActionLink("Logout", "AdminLogin", "Home", null, null)</li>
                         }
 
                         else if (value == 3)
@@ -87,6 +88,7 @@
 
                             <li>@Html.ActionLink("Complete Appointment", "CompleteAppointment", "LabApprove", null, null)</li>
                             <li>@Html.ActionLink("All Appointment", "AllAppoint", "LabApprove", null, null)</li>
+                            <li>@Html.ActionLink("Logout", "AdminLogin", "Home", null, null)</li>
 
                         }
 
@@ -98,6 +100,7 @@
                             <li>@Html.ActionLink("Pending Appointment", "PendingAppoint", "DoctorApprove", null, null)</li>
                             <li>@Html.ActionLink("Complete Appointment", "CompleteAppointment", "DoctorApprove", null, null)</li>
                             <li>@Html.ActionLink("All Appointment", "AllAppoint", "DoctorApprove", null, null)</li>
+                            <li>@Html.ActionLink("Logout", "AdminLogin", "Home", null, null)</li>
 
                         }
 
@@ -120,6 +123,7 @@
                             <li>@Html.ActionLink("Current(Doctor) Appointment", "CurrentAppoint", "DoctorAppointStatus", null, null)</li>
                             <li>@Html.ActionLink("Cancel(Doctor) Appointment", "CancelAppoint", "DoctorAppointStatus", null, null)</li>
                             <li>@Html.ActionLink("Complete(Doctor) Appointment", "CompleteAppoint", "DoctorAppointStatus", null, null)</li>
+                            <li>@Html.ActionLink("Logout", "Login", "Home", null, null)</li>
 
                         }
                     }
