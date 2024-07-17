@@ -28,6 +28,21 @@ namespace OnlineDiagnosticSystem.Controllers
             return View();
         }
 
+        public ActionResult AboutUs()
+        {
+            return View();
+        }
+
+        public ActionResult Department()
+        {
+            return View();
+        }
+
+        public ActionResult Doctors()
+        {
+            return View();
+        }
+
         public ActionResult Login()
         {
             return View();
